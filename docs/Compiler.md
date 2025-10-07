@@ -60,3 +60,15 @@ g++ -std=c++17 -Wall --pedantic-errors -x c++-header -o 出力ファイル(all.h
 ```shell
 g++ -std=c++17 -Wall --pedantic-errors -include all.h -o program main.cpp
 ```
+
+# ビルドシステム
+
+何千ものソースファイルをコンパイルする必要がある場合、`GUN Make`というビルドシステムを使用することで簡単なコマンドで依存関係を解決してのコンパイルが可能になる
+
+`GUN Make`を使用することで以下のコマンドでコンパイルなどができるようになる
+
+```shell
+make // コンパイルと再コンパイル
+make run // プログラムを実行（これを使うことで共通した方法でプログラムを実行できる）
+make clean // ソースファイルから生成されたプログラムなどのファイルを全て削除
+```
