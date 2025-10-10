@@ -72,3 +72,41 @@ make // コンパイルと再コンパイル
 make run // プログラムを実行（これを使うことで共通した方法でプログラムを実行できる）
 make clean // ソースファイルから生成されたプログラムなどのファイルを全て削除
 ```
+
+## Makefile の書き方
+
+まず作成例として、以下のコマンドを実行する Makefile を作成する
+
+```shell
+cat source > program
+```
+
+上記のコマンドを Makefile で書くと以下のようになる
+
+```Makefile
+program:source
+  cat source > program
+```
+
+Makefile が作成できたら、make コマンドを実行する
+
+```shell
+make
+```
+
+ファイル source01, source02, source03 の中身を順番で連結して source ファイルを生成する場合は以下のように書く
+
+```Makefile
+program : source
+  cat source > program
+
+// 以下のコードを新たに追加
+source : source01 source02 source03
+  cat source01 source02 source03 > source
+```
+
+上記のコードをコマンドで実行する場合、 source01, source02, source03 を source に連結した後に `cat source > program` を実行する必要があるが、Makefile であれば make コマンドを実行することで依存関係を自動で解決してくれる
+
+また、すでに make を実行した後でもう一度 make を実行すると、`make: 'program' is up to date.`という「program は最新だ」というメッセージが表示される
+
+make はファイルのタイムスタンプを調べて実行するため、source02 ファイルが更新された場合、再度 source ファイルの作成から実行し直す
