@@ -110,3 +110,38 @@ source : source01 source02 source03
 また、すでに make を実行した後でもう一度 make を実行すると、`make: 'program' is up to date.`という「program は最新だ」というメッセージが表示される
 
 make はファイルのタイムスタンプを調べて実行するため、source02 ファイルが更新された場合、再度 source ファイルの作成から実行し直す
+
+### コメント
+
+`#`で Makefile にコメントを書くことができる
+
+```Makefile
+# programを生成するルール
+program : source
+  cat source > program
+
+# sourceを生成するルール
+source : source01 source02 source03
+  cat source01 source02 source03 > source
+```
+
+### 変数
+
+Makefile には変数を書くことができる
+
+```Makefile
+variable = foobar
+
+target: $(variable)
+```
+
+これは、
+
+```Makefile
+target: foobar
+```
+
+と書いたのと同じになる
+
+変数は左側に変数名、右側に変数の内容を書く
+変数を使う時は、`$(変数名)`のように`$()`で包む
