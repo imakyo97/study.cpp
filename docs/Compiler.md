@@ -147,3 +147,56 @@ target: foobar
 変数を使う時は、`$(変数名)`のように`$()`で包む
 
 ### 自動変数
+
+#### ターゲット: `$@`
+
+```Makefile
+target:
+  echo $@
+```
+
+上記の Makefile を実行すると以下のようになる
+
+```shell
+echo target
+```
+
+#### 最初の事前要件: `$<`
+
+```Makefile
+target: A B C
+  echo $<
+```
+
+上記の Makefile を実行すると以下のようになる
+
+```shell
+echo A
+```
+
+#### すべての事前要件: `$^`
+
+```Makefile
+target: A B C
+  echo $^
+```
+
+上記の Makefile を実行すると以下のようになる
+
+```shell
+echo A B C
+```
+
+#### 自動変数の組み合わせ
+
+```Makefile
+target: prerequisite
+  cat prerequisite > target
+```
+
+上記の Makefile を自動変数で書き換えると以下のようになる
+
+```Makefile
+target: prerequisite
+  cat $< > $@
+```
